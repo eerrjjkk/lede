@@ -60,6 +60,7 @@ jobs:
           ./scripts/feeds install -a
       - name: Costom configure file
         run: |
+          touch ./.config
           cat > .config <<EOF
           # Device type
           CONFIG_TARGET_x86=y
@@ -105,6 +106,7 @@ jobs:
           CONFIG_PACKAGE_softethervpn5-libs=y
           CONFIG_PACKAGE_softethervpn5-server=y
           EOF
+          sed -i 's/^[ \t]*//g' ./.config
           
       - name: Generate configuration file
         run: make defconfig
